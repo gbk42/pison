@@ -1,8 +1,8 @@
 """Module containing basic helper functions"""
-import pandas as pd
-from pathlib import Path
-from matplotlib import pyplot as plt
 import itertools
+from pathlib import Path
+import numpy as np
+import pandas as pd
 
 EMG_CHANNELS = ["ch0", "ch1"]
 EMG_HP_CHANNELS = ["ch0_hp", "ch1_hp"]
@@ -19,7 +19,7 @@ body_movement_code = {
 }
 
 
-def load_data(uniform_length: bool = True) -> pd.DataFrame:
+def load_data(uniform_length: bool = True, augment=True) -> pd.DataFrame:
     """Load and reindex the dataset to get each "gesture" in MultiIndex format
 
     Args:
@@ -44,9 +44,11 @@ def load_data(uniform_length: bool = True) -> pd.DataFrame:
         "gx",
         "gy",
         "gz",
+        # For ACC, x, z, then y - I think these got mixed up because otherwise y shows a
+        # constant 1g offset when the user is at rest...
         "ax",
-        "ay",
         "az",
+        "ay",
         "body_label",
         "rep",
     ]
@@ -68,4 +70,25 @@ def load_data(uniform_length: bool = True) -> pd.DataFrame:
     if uniform_length:
         print(f"Trimming observations to {min_length} samples")
         dataset = dataset[dataset.sample_num < min_length]
+
+    # Add the sample number to the index
+    dataset = dataset.set_index("sample_num", append=True)
+
+    # Process differential signals
+    dataset["emg_raw"] = dataset["ch1"] - dataset["ch0"]
+    dataset["emg_hp"] = dataset["ch1_hp"] - dataset["ch0_hp"]
+    return dataset
+
+
+def augment_data(dataset: pd.DataFrame, factor: int):
+    """Apply a cyclic shift to augment the dataset for more robust classification training"""
+    for (body, rep), observation in dataset.groupby(level=(0, 1)):
+        largest_rep = dataset.loc[body].index.max()[0]
+        for new_rep in range(largest_rep + 1, largest_rep + factor + 1):
+            shifted = observation.reindex(index=np.roll(observation.index, np.random.randint(0, len(observation))))
+            shifted.reset_index(['body_label', 'rep', 'sample_num'], inplace=True)
+            shifted['rep'] = new_rep
+            shifted['sample_num'] = np.arange(len(shifted))
+            shifted.set_index(['body_label', 'rep', 'sample_num'], inplace=True)
+            dataset = pd.concat((dataset, shifted))
     return dataset
