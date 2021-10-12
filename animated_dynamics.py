@@ -16,13 +16,12 @@ for (body, rep), observation in dataset.groupby(level=(0, 1)):
     ax.set_xlim3d([-3, 3])
     ax.set_ylim3d([-3, 3])
     ax.set_zlim3d([-3, 3])
-    title = f'{body_movement_code[body]}, rep {rep}'    
+    title = f"{body_movement_code[body]}, rep {rep}"
 
     def update(num, line, data):
         line.set_data(data[:num, 0], data[:num, 1])
         line.set_3d_properties(data[:num, 2])
         return [line]
-
 
     # call the animator.  blit=True means only re-draw the parts that have changed.
     anim = animation.FuncAnimation(

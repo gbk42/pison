@@ -85,10 +85,12 @@ def augment_data(dataset: pd.DataFrame, factor: int):
     for (body, rep), observation in dataset.groupby(level=(0, 1)):
         largest_rep = dataset.loc[body].index.max()[0]
         for new_rep in range(largest_rep + 1, largest_rep + factor + 1):
-            shifted = observation.reindex(index=np.roll(observation.index, np.random.randint(0, len(observation))))
-            shifted.reset_index(['body_label', 'rep', 'sample_num'], inplace=True)
-            shifted['rep'] = new_rep
-            shifted['sample_num'] = np.arange(len(shifted))
-            shifted.set_index(['body_label', 'rep', 'sample_num'], inplace=True)
+            shifted = observation.reindex(
+                index=np.roll(observation.index, np.random.randint(0, len(observation)))
+            )
+            shifted.reset_index(["body_label", "rep", "sample_num"], inplace=True)
+            shifted["rep"] = new_rep
+            shifted["sample_num"] = np.arange(len(shifted))
+            shifted.set_index(["body_label", "rep", "sample_num"], inplace=True)
             dataset = pd.concat((dataset, shifted))
     return dataset

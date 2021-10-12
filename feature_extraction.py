@@ -2,8 +2,17 @@
 
 import itertools
 import math
-from typing import (Callable, Dict, Iterator, List, Literal, Optional,
-                    Sequence, Tuple, Union)
+from typing import (
+    Callable,
+    Dict,
+    Iterator,
+    List,
+    Literal,
+    Optional,
+    Sequence,
+    Tuple,
+    Union,
+)
 
 import attr
 import numpy as np

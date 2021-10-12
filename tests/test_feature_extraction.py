@@ -30,11 +30,36 @@ def test_feature_extractors(extractor, data, answer):
 
 
 def test_process_dataframe():
-    test_frame = pd.DataFrame(data=np.arange(9).reshape(3, 3), columns=["a", "b", "c"])
+    multi_index = [
+        np.array([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]),
+        np.array([1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 2]),
+        np.array([0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2]),
+    ]
+    test_frame = pd.DataFrame(
+        data=np.arange(24).reshape(12, 2), columns=["a", "b"], index=multi_index
+    )
     extractors = {
         "a": FeatureExtractor("mean", np.mean),
         "b": [FeatureExtractor("mean", np.mean), FeatureExtractor("max", np.max)],
-        "c": FeatureExtractor("min", np.min),
     }
-    result = process_dataframe(test_frame, extractors)
-    assert result == {"a.mean": 3.0, "b.mean": 4.0, "b.max": 7, "c.min": 2}
+    result = process_dataframe(test_frame, extractors, normalize=False)
+    assert result.to_dict() == {
+        "a.mean": {
+            (0.0, 1.0): 2.0,
+            (0.0, 2.0): 8.0,
+            (1.0, 1.0): 14.0,
+            (1.0, 2.0): 20.0,
+        },
+        "b.mean": {
+            (0.0, 1.0): 3.0,
+            (0.0, 2.0): 9.0,
+            (1.0, 1.0): 15.0,
+            (1.0, 2.0): 21.0,
+        },
+        "b.max": {
+            (0.0, 1.0): 5.0,
+            (0.0, 2.0): 11.0,
+            (1.0, 1.0): 17.0,
+            (1.0, 2.0): 23.0,
+        },
+    }
