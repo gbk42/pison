@@ -31,7 +31,7 @@ Conveniently, each repetition was in class order for all body movements.
 
 When testing different features' ability to discriminate between wrist-motion classes, trial and error is necessary.  To shorten trial and error iteration time, I created a small framework for specifying functions that would take whole channels or segmented channel data and produce well labeled scalar features.
 
-1. `FeatureExtractor` class - This is a class that applies a function that holds column(s) names, a function that extracts a scalar feature from a `ndarray`, and optionally can segment a channel to apply the function over different samples in the dataset.  This class makes it easy to define many different feature extractors for all channels of data.
+1. `FeatureExtractor` class - This is a class that holds column(s) names, a function that extracts a scalar feature from a `ndarray`, and optionally can segment a channel to apply the function over different samples in the dataset.  This class makes it easy to define many different feature extractors for all channels of data.
 
 2. `process_dataframe` function - This routine takes a full `DataFrame` of raw sensor data and lists of `FeatureExtractor`s for each channel and produces a normalized result ready for clustering.
 
