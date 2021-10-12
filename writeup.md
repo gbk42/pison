@@ -19,11 +19,11 @@ The dynamics data was relatively straightforward to interpret for the standing c
 
 There are three distinct movement patterns in this data that can be characterized by gyroscope and accelerometer data and visualized by plotting the quaternions in euler format.  Note that gravitational acceleration shows up as a constant -9.8 m/s/s when the device is oriented flat on a table.
 
-1. Rotation about the Z axis with slight rotations in Y - this would look like turning a doorknob about a quarter turn.  A quarter turn aligns well with the accelerometer readings of `ax` and `az` meeting at the peak of the rotation, meaning gravitational acceleration is perfectly split between the two at 45 degrees of rotation.
+1. "Doorknob" - This class was characterized by rotation about the Z axis with slight rotations in Y, which resembles turning a doorknob about a quarter turn.  A quarter turn aligns well with the accelerometer readings of `ax` and `az` meeting at the peak of the rotation, meaning gravitational acceleration is perfectly split between the two at 45 degrees of rotation.
 
-2. Rotation about X.  This would look someone moving their hand out to hit a key on a keyboard at waist height.  We again see two axes, Y and Z, of acceleration meet at the midpoint of the gesture, meaning a 45 degree angle was reached.  
+2. "Keyboard" - This class was characterized by rotation about X.  This would look someone moving their hand out to hit a key on a keyboard at waist height when standing.  We again see two acceleration axes, Y and Z, meet at the midpoint of the gesture, meaning a 45 degree angle was reached.  
 
-3. Pure and rapid rotation about the Y axis with acceleration in the X and Y axes that are in phase.  For lack of a better description, this looks like someone brushing eraser dust off of a sheet of paper.  This class was also clearly distinct in the EMG data as a series of very impulsive muscle activation potentials.
+3. "Brushing" - This class was characterized by pure and rapid rotation about the Y axis with acceleration in the X and Y axes that are in phase.  For lack of a better description, this looks like someone brushing eraser dust off of a sheet of paper.  This class was also clearly distinct in the EMG data as a series of very impulsive muscle activation potentials.
 
 Conveniently, each repetition was in class order for all body movements.
 
