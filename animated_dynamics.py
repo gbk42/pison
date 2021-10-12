@@ -3,7 +3,7 @@ from matplotlib import animation
 from matplotlib import pyplot as plt
 
 from feature_extraction import quaternion_to_euler_angle
-from helpers import load_data, body_movement_code
+from data_operations import load_data, body_movement_code
 
 dataset = load_data()
 for (body, rep), observation in dataset.groupby(level=(0, 1)):
@@ -33,11 +33,4 @@ for (body, rep), observation in dataset.groupby(level=(0, 1)):
         save_count=len(eulers),
     )
 
-    # save the animation as an mp4.  This requires ffmpeg or mencoder to be
-    # installed.  The extra_args ensure that the x264 codec is used, so that
-    # the video can be embedded in html5.  You may need to adjust this for
-    # your system: for more information, see
-    # http://matplotlib.sourceforge.net/api/animation_api.html
-    writergif = animation.PillowWriter(fps=2500)
-    anim.save(f'{title}.gif', writer=writergif)
-    print(f'Finished {title}')
+    plt.show()
