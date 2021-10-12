@@ -43,8 +43,8 @@ Dynamics data was best summarized by correlations between channels of data to su
 
 When these feature vectors underwent dimensionality reduction with kernelized PCA, it was clear that the features generalized well across different body movements and produced distinct, tight clusters in two dimensions that were clean inputs to a simple classifier like LDA or a SVM.  Note in the plots below that generalization was excellent across body movement as each cluster features a sample from each movement category.
 
-<img src="./images/clustering_body.png" alt="cluster_body" width="200"/>
-<img src="./images/clustering_rep.png" alt="cluster_body" width="200">
+<img src="./images/clustering_body.png" alt="cluster_body" width="400"/>
+<img src="./images/clustering_rep.png" alt="cluster_body" width="400">
 
 ## Classification
 
