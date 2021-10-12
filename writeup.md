@@ -9,7 +9,7 @@ were less intuitive than the accelerometer and gyroscope sensor datasets.
 
 ### Nerve Channel Data
 
-From reading [1], EMG data is often distorted if electrodes shift on the surface of the skin, causing large swings in lower frequencies due to slow impedance changes. High passed data was mostly associated with the start of large dynamics events and varied between observations mostly in impulsivity, or in the frequency domain, total bandwidth.  It was immediately clear from both the raw signal and the high passed channels that behavior was not greatly distorted in magnitude or by different movement classes. Nerve data was properly processed down to one channel for both raw and high passed data as these signals were differential pairs.
+From reading [1], EMG data is often distorted if electrodes shift on the surface of the skin, causing large swings in lower frequencies due to slow impedance changes. High passed data was mostly associated with the start of large dynamics events and varied between observations mostly in impulsivity or total bandwidth.  It was immediately clear from both the raw signal and the high passed channels that behavior was not greatly distorted in magnitude or by different movement classes. Nerve data was properly processed down to one channel for both raw and high passed data as these signals were differential pairs.
 
 ### Dynamics Data
 
